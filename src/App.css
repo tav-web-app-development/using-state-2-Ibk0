@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.checkout-form{
+  display: flex;
+  flex-direction: column
+}
