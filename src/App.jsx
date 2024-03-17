@@ -1,24 +1,42 @@
+import { useState } from "react";
 import "./App.css";
 import ProductCardContainer from "./components/ProductCardContainer";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import CheckoutForm from "./components/CheckoutForm";
 
 function App() {
+  const [cartItems, setCartItems] = useState(0);
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  const handleAddToCart = () => {
+    setCartItems(cartItems + 1);
+    alert(`you added ${cartItems + 1}`);
+  };
+
+  const handleCheckoutClick = () => {
+    console.log("checkout clicked")
+    setShowCheckout(true);
+    console.log("showCheckout: ",showCheckout)
+  };
+
   return (
     <main className="store">
-      <NavBar user={user} />
-      <ProductCardContainer products={products} />
+      <NavBar user={user} cartItems={cartItems} onCheckoutClick={handleCheckoutClick} />
+      {showCheckout && <CheckoutForm  setShowCheckout={setShowCheckout}/>}
+      <ProductCardContainer products={products} onAddToCart={handleAddToCart} />
       <Footer />
     </main>
   );
 }
-export default App;
 
 const user = {
   firstName: "Olivia",
   lastName: "Parker",
-  itemsInCart: 0,
 };
+
+export default App;
+
 
 const products = [
   {
